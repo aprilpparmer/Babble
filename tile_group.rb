@@ -1,12 +1,19 @@
 module TileGroup
-   @@tiles = Array.new
+   attr_accessor :tiles
    
    def append(tile)
-   	   @@tiles.push(tile)
+   	   tiles = Array.new()
+   	   tiles.push(tile)
    end
    
    def remove(tile)
    	   i = @@tiles.index(tile)
-   	   @@tiles.delete)_at(i)
+   	   @@tiles.delete_at(i)
    end
+   
+   def to_s
+   	   return tiles.to_s
+   end
+end
+
    	   
