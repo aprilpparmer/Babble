@@ -3,7 +3,6 @@ require_relative 'word.rb'
 
 class TileRack
 include TileGroup
-include Word
 
    def number_of_tiles_needed
 	t = @@tiles.length
@@ -37,6 +36,10 @@ include Word
    	   end
    	   text_array = Word.new
    	   return text_array
+   end
+   
+   def size
+   	   @@tiles.length
    end
 
 end
