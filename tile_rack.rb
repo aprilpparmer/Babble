@@ -16,8 +16,19 @@ end
 def has_tiles_for?(text)
 	text_array = text.split(//)
 	text_array = text_array.map &:to_sym
-	word_check = @@tiles
-	word_check.eql?(text_array)
+	tiles_copy = @@tiles
+	contains = false
+	
+	text_array.each do |x|
+		contains = tiles_copy.include?(x)
+		if contains
+			i = tiles_copy.index(x)
+			tiles_copy.delete_at(i)
+		end
+		return contains
+	end
 end
+
+
 end
 
