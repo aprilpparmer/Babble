@@ -4,11 +4,16 @@ require_relative 'tile_bag.rb'
 class Word
 include TileGroup
 
+   def initialize()
+   	   super()
+   	   @tiles = Array.new
+   	   @score = 0
+   end
+   
    def score
-   	   score = 0
-   	   @@tiles.each do |x|
-   	   	   score = score + TileBag.points_for(x)
+   	   @tiles.each do |x|
+   	   	   @score = @score + TileBag.points_for(x)
    	   end
-   	return score   
+   	return @score   
    end
 end

@@ -1,7 +1,7 @@
 module TileGroup
    attr_accessor :tiles
    
-   def intialize()
+   def initialize()
    	   @tiles = Array.new
    end
    

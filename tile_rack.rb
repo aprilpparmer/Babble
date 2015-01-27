@@ -18,13 +18,20 @@ include TileGroup
    end
 
   def has_tiles_for?(text)
+  	contains = false  
+  	text_array = text.split(//)
+  	text_array = text_array.map &:to_sym  
   	tiles_copy = Array.new(@tiles)
-  	text.each_char do |x|
-  	i = tiles_copy.index(x.to_sym)
-  	return false 
-  	if i == nil
-  	tiles_copy.delete_at(i)
+  	text_array.each do |x|
+  		if tiles_copy.include?(x) == true
+  			i = tiles_copy.index(x)
+  			tiles_copy.delete_at(i)
+  			contains = true
+  		elsif tiles_copy.include?(x) == false
+  			contains = false
+  		end
   	end
+  	return contains
    end
 
    def remove_word(text)
@@ -35,13 +42,8 @@ include TileGroup
    	   	   i = @tiles.index(x)
    	   	   @tiles.delete_at(i)
    	   end
-   	   text_array = Word.new
-   	   return text_array
+   	   word = Word.new
+   	   word.append(text_array)
+   	   return word
    end
-   
-   def size
-   	 return @tiles.length
-   end
-
-end
 end
