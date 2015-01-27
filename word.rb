@@ -2,6 +2,7 @@ require_relative 'tile_group.rb'
 require_relative 'tile_bag.rb'
 
 class Word
+include TileGroup
 
    def score
    	   score = 0

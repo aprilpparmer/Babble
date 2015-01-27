@@ -1,19 +1,22 @@
 module TileGroup
    attr_accessor :tiles
+   @tiles = Array.new
    
    def append(tile)
-   	   tiles = Array.new()
-   	   tiles.push(tile)
+   	   @tiles.push(tile)
    end
    
    def remove(tile)
-   	   i = @@tiles.index(tile)
-   	   @@tiles.delete_at(i)
+   	   i = @tiles.index(tile)
+   	   @tiles.delete_at(i)
    end
    
    def to_s
-   	   return tiles.to_s
+   	   @tiles.join(sep='')
    end
 end
 
-   	   
+
+   class TileGroupTester
+   	   include TileGroup
+   end  	   
