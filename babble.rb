@@ -14,10 +14,18 @@ puts "Make a word to earn points!"
 @total_score = 0
 7.times do @tile_rack.append(@tile_bag.draw_tile) end
 
-while !@tile_bag.empty? && @tile_rack.number_of_tiles_needed < 7 do
+while !@tile_bag.empty? || @tile_rack.size != 0 do
 	
    tiles_needed = @tile_rack.number_of_tiles_needed
    tiles_needed.times do @tile_rack.append(@tile_bag.draw_tile) end  
+   puts "There are #{@tile_bag.tiles_left} tiles left in the bag."   	  
+   
+   if @tile_rack.size == 0
+   	   puts "Congratulations, you've finished the game! Your final score was #{@total_score}!"
+   	   exit
+   	   else puts @tile_rack.size end   
+   
+   
    puts @tile_rack.to_s
    
    input = gets.chomp   
@@ -26,23 +34,20 @@ while !@tile_bag.empty? && @tile_rack.number_of_tiles_needed < 7 do
    if input == ":EXIT" 
    	   exit
    end
-   @rack_contains = @tile_rack.has_tiles_for?(input)
    
-   if @rack_contains == true
+   if @tile_rack.has_tiles_for?(input)
    	   if Spellchecker::check(input)[0][:correct]
-   	   	   puts "You played #{input}."
    	   	   word_played = Word.new
    	   	   word_played = @tile_rack.remove_word(input)
-   	   	   puts "#{word_played.to_s} is the word played..with #{word_played.score}." 
-   #	   	   @total_score = @total_score + word_played_score
-   #	   	   puts "Great! Word #{input} is worth #{word_played.score}!"
-   #	   	   puts "Your total score is #{@total_score}."
-   	  
+   	   	   word_score = word_played.score
+   	   	   @total_score = @total_score + word_score
+   	   	   puts "Great! Word #{input} is worth #{word_score}!"
+   	   	   puts "Your total score is #{@total_score}."
    	  elsif  
    	   	   puts "#{input} was not a valid word in our dictionary. Please try again."
    	   end
    	   
-   elsif @rack_contains == false
+   elsif !@tile_rack.has_tiles_for?(input)
    	   puts "You do not have enough tiles to make that word. Please try again"
    end
 end

@@ -1,6 +1,9 @@
 module TileGroup
    attr_accessor :tiles
-   @tiles = Array.new
+   
+   def initialize()
+   	   @tiles = Array.new
+   end
    
    def append(tile)
    	   @tiles.push(tile)
@@ -12,7 +15,7 @@ module TileGroup
    end
    
    def to_s
-   	   @tiles.join(sep='')
+   	   @tiles.join
    end
 end
 

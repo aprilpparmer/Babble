@@ -2,7 +2,7 @@ module TileGroup
    attr_accessor :tiles
    
    def initialize()
-   	   @tiles = Array.new
+   	   @tiles = []
    end
    
    def append(tile)
