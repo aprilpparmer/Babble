@@ -4,8 +4,6 @@ require 'tempfile'
 require_relative 'word.rb'
 require_relative 'tile_rack.rb'
 
-
-
 puts "Welcome to Babble!"
 puts "Make a word to earn points!"
 
@@ -14,18 +12,17 @@ puts "Make a word to earn points!"
 @total_score = 0
 7.times do @tile_rack.append(@tile_bag.draw_tile) end
 
-while !@tile_bag.empty? || @tile_rack.size != 0 do
+while !@tile_bag.empty? || @tile_rack.get_tiles.length > 0 do
 	
+   if !@tile_bag.empty?		
    tiles_needed = @tile_rack.number_of_tiles_needed
    tiles_needed.times do @tile_rack.append(@tile_bag.draw_tile) end  
-   puts "There are #{@tile_bag.tiles_left} tiles left in the bag."   	  
-   
-   if @tile_rack.size == 0
-   	   puts "Congratulations, you've finished the game! Your final score was #{@total_score}!"
-   	   exit
-   	   else puts @tile_rack.size end   
-   
-   
+   end
+   puts "There are #{@tile_bag.tiles_left} tiles left in the bag," 
+   puts "and #{@tile_rack.get_tiles.length} tile(s) on the rack"
+   if @tile_rack.get_tiles.length == 0
+   	   break
+   end
    puts @tile_rack.to_s
    
    input = gets.chomp   
@@ -36,7 +33,7 @@ while !@tile_bag.empty? || @tile_rack.size != 0 do
    end
    
    if @tile_rack.has_tiles_for?(input)
-   	   if Spellchecker::check(input)[0][:correct]
+   	  if Spellchecker::check(input)[0][:correct]
    	   	   word_played = Word.new
    	   	   word_played = @tile_rack.remove_word(input)
    	   	   word_score = word_played.score
@@ -45,10 +42,12 @@ while !@tile_bag.empty? || @tile_rack.size != 0 do
    	   	   puts "Your total score is #{@total_score}."
    	  elsif  
    	   	   puts "#{input} was not a valid word in our dictionary. Please try again."
-   	   end
+   	  end
    	   
    elsif !@tile_rack.has_tiles_for?(input)
-   	   puts "You do not have enough tiles to make that word. Please try again"
+   	  puts "You do not have enough tiles to make that word. Please try again"
    end
 end
 
+puts "Congratulations, you've finished the game! Your final score was #{@total_score}!"
+exit

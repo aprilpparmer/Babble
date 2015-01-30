@@ -6,9 +6,9 @@ include TileGroup
 
 @maximum_size
 
-   def initialize(max_size)
+   def initialize(size)
    	super()
-	@maximum_size = max_size
+	@maximum_size = size
    end
    
    def number_of_tiles_needed
@@ -18,32 +18,27 @@ include TileGroup
    end
 
   def has_tiles_for?(text)
-  	contains = false  
-  	text_array = text.split(//)
-  	text_array = text_array.map &:to_sym  
   	tiles_copy = Array.new(@tiles)
-  	text_array.each do |x|
-  		if tiles_copy.include?(x) == true
-  			i = tiles_copy.index(x)
-  			tiles_copy.delete_at(i)
-  			contains = true
-  		elsif tiles_copy.include?(x) == false
-  			contains = false
-  		end
-  	end
-  	return contains
-   end
+	text.each_char do |x|
+	i = tiles_copy.index(x.to_sym)
+	return false if i == nil
+	tiles_copy.delete_at(i)
+	end
+  end
 
    def remove_word(text)
-   	   text_array = text.split(//)
-   	   text_array = text_array.map &:to_sym
-   	   
-   	   text_array.each do |x|
-   	   	   i = @tiles.index(x)
+   	   text.each_char do |x|
+   	   	   i = @tiles.index(x.to_sym)
    	   	   @tiles.delete_at(i)
    	   end
    	   word = Word.new
-   	   word.append(text_array)
+   	   text.each_char do |x|
+   	   	   word.append(x.to_sym)
+   	   end
    	   return word
+   end
+   
+   def size
+   	   return @tiles.length
    end
 end

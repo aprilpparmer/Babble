@@ -38,7 +38,7 @@ include TileGroup
    	   return word
    end
    
-   def size
-   	   return @tiles.length
+   def get_tiles
+   	   return @tiles
    end
 end

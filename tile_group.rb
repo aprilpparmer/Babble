@@ -17,9 +17,4 @@ module TileGroup
    def to_s
    	   @tiles.join
    end
-end
-
-
-   class TileGroupTester
-   	   include TileGroup
-   end  	   
+end   
